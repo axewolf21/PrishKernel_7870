@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Setting Up Environment"
 echo ""
-export CROSS_COMPILE=../toolchain/gcc-linaro-7.5.0/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=/home/axewolf212/neel/toolchain/linaro/bin/aarch64-linux-gnu-
 export ARCH=arm64
 export ANDROID_MAJOR_VERSION=q
 export PLATFORM_VERSION=10.0.0
@@ -28,7 +28,7 @@ BUILD()
 echo "#"
 echo "Building DTB"
 echo "#"
-make j7velte_defconfig
+make goku_defconfig
 DTS=arch/arm64/boot/dts
 make exynos7870-j7velte_sea_open_00.dtb exynos7870-j7velte_sea_open_01.dtb exynos7870-j7velte_sea_open_03.dtb
 ./tools/dtbtool "$DTS"/ -o dtb
@@ -37,9 +37,9 @@ rm ./"$DTS"/*.dtb
 echo "#"
 echo "Building zImage"
 echo "#"
-make j7velte_defconfig
+make goku_defconfig
 # REMINDER: [DISABLE FROM CONFIG OR IT WILL OVERLAP]
-make CONFIG_LOCALVERSION=" ZEUS -Q v1 J701X"
+make CONFIG_LOCALVERSION=" PrishKernel-U1-J701X"
 CPU=`nproc --all`
 make -j"$CPU"
 cp ./arch/arm64/boot/Image ./Image
